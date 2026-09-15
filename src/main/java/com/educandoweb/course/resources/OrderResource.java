@@ -2,7 +2,6 @@ package com.educandoweb.course.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +15,11 @@ import com.educandoweb.course.services.OrderService;
 @RequestMapping(value = "/orders")
 public class OrderResource {
 	
-	@Autowired
-	private OrderService service;
+	private final OrderService service;
+
+	OrderResource(OrderService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity <List<Order>> findAll(){

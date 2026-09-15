@@ -3,7 +3,6 @@ package com.educandoweb.course.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.educandoweb.course.entities.User;
@@ -13,8 +12,12 @@ import com.educandoweb.course.repositories.UserRepository;
 public class UserService {
 
 	
-	@Autowired
-	private UserRepository repository;
+	private final UserRepository repository;
+
+
+	UserService(UserRepository repository) {
+		this.repository = repository;
+	}
 	
 	
 	public List<User> findAll(){
