@@ -39,6 +39,7 @@ public class OrderItem {
 		id.setOrder(order);
 	}
 	
+	
 	public Product getProduct() {
 		return id.getProduct();
 		
@@ -48,6 +49,7 @@ public class OrderItem {
 		id.setProduct(product);
 	}
 
+	@JsonIgnore
 	public OrderItemPK getId() {
 		return id;
 	}

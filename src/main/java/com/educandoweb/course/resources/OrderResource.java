@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.services.OrderService;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -29,6 +30,7 @@ public class OrderResource {
 		
 	}
 	@GetMapping(value  = "/{id}")
+
 	public ResponseEntity <Order> findById(@PathVariable Long id){
 		
 		Order Order = service.findById(id);
