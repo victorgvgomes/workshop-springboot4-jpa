@@ -1,6 +1,7 @@
 package com.educandoweb.course.entities;
 
 import com.educandoweb.course.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -11,7 +12,7 @@ import jakarta.persistence.Table;
 public class OrderItem {
 	
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK(); // por ser um id composto, o banco não gera ele.
 	
 	private Integer quantity;
 	private Double price;
@@ -28,6 +29,7 @@ public class OrderItem {
 		this.price=price;
 		
 	}
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 		
@@ -42,7 +44,7 @@ public class OrderItem {
 		
 	}
 	
-	public void setOrder(Product product) {
+	public void setProduct(Product product) {
 		id.setProduct(product);
 	}
 
@@ -50,7 +52,7 @@ public class OrderItem {
 		return id;
 	}
 
-	public void OrderItemPK(OrderItemPK id) {
+	public void setId(OrderItemPK id) {
 		this.id = id;
 	}
 
