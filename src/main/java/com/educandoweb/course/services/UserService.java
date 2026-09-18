@@ -8,7 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.educandoweb.course.entities.User;
-import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.UserRepository;
 import com.educandoweb.course.services.exceptions.DatabaseException;
 import com.educandoweb.course.services.exceptions.ResourceNotFoundException;
@@ -17,13 +16,11 @@ import com.educandoweb.course.services.exceptions.ResourceNotFoundException;
 public class UserService {
 
 	
-	private final CategoryRepository categoryRepository;
 	private final UserRepository repository;
 
 
-	UserService(UserRepository repository, CategoryRepository categoryRepository) {
+	UserService(UserRepository repository) {
 		this.repository = repository;
-		this.categoryRepository = categoryRepository;
 	}
 	
 	
@@ -39,6 +36,10 @@ public class UserService {
 		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 
 		
+	}
+	
+	public User insert(User obj) {
+		return repository.save(obj);
 	}
 	
 	public void delete (Long id) {
