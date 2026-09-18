@@ -25,14 +25,14 @@ public class OrderItemPK implements Serializable{
 
 	private Product product;
 	
-	@JsonIgnore
+	
 	public Order getOrder() {
 		return order;
 	}
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	@JsonIgnore
+
 	public Product getProduct() {
 		return product;
 	}
