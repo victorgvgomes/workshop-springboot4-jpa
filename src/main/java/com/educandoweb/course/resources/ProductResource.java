@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.educandoweb.course.entities.Product;
 import com.educandoweb.course.services.ProductService;
-import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value = "/products")
