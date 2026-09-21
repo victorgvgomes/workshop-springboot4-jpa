@@ -6,6 +6,7 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.educandoweb.course.entities.Category;
 import com.educandoweb.course.entities.Order;
@@ -31,13 +32,16 @@ public class TestConfig implements CommandLineRunner {
 	private final CategoryRepository categoryRepository;
 	private final ProductRepository productRepository;
 	private final OrderItemRepository orderItemRepository;
+    private final PasswordEncoder passwordEncoder;
 
-	TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository) {
+
+	TestConfig(UserRepository userRepository, PasswordEncoder passwordEncoder, OrderRepository orderRepository, CategoryRepository categoryRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository) {
 		this.userRepository = userRepository;
 		this.orderRepository = orderRepository;
 		this.categoryRepository = categoryRepository;
 		this.productRepository = productRepository;
 		this.orderItemRepository= orderItemRepository;
+		this.passwordEncoder=passwordEncoder;
 		
 	}
 	
@@ -55,8 +59,8 @@ public class TestConfig implements CommandLineRunner {
 		Category cat3 = new Category(null, "Computers"); 
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		
-		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
-		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456"); 
+        User u1 = new User(null, "Maria Brown", "maria@gmail.com", passwordEncoder.encode("123456"), "988888888");
+		User u2 = new User(null, "Alex Green", "alex@gmail.com", passwordEncoder.encode("977777777"), "123456"); 
 		
 		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.PAID);
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), u2, OrderStatus.WAITING_PAYMENT);

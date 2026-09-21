@@ -1,10 +1,12 @@
 package com.educandoweb.course.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.educandoweb.course.entities.User;
@@ -19,17 +21,18 @@ public class UserService {
 
 	
 	private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
 
-	UserService(UserRepository repository) {
+	UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
 		this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+
 	}
 	
 	
-	public List<User> findAll(){
-		return repository.findAll();
-		
-		
+	public Page<User> findAll(Pageable pageable) {
+	    return repository.findAll(pageable);  // busca só UMA FATIA
 	}
 	
 	public User findById(Long id) {
@@ -41,6 +44,7 @@ public class UserService {
 	}
 	
 	public User insert(User obj) {
+		 obj.setPassword(passwordEncoder.encode(obj.getPassword()));
 		return repository.save(obj);
 	}
 	
